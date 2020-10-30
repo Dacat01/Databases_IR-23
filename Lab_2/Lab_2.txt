@@ -1,0 +1,91 @@
+1.
+
+Select * from labor_sql.printer
+where  type ="Matrix"
+and price <300 
+order by type desc;
+
+2.
+
+Select name,launched from  labor_sql.ships
+where name not like '%a';
+
+
+3.
+
+select product.model,product.maker,product.type,pc.speed,pc.hd 
+from labor_sql.product,labor_sql.pc
+where pc.hd<=8 
+and type="pc" 
+and pc.model=product.model;
+
+4.  
+
+select distinct maker
+from labor_sql.product
+where  maker in (select maker from product where type='PC')
+and maker in (select maker from product where type='Laptop');
+
+
+5.
+
+select distinct ships.class from labor_sql.ships,labor_sql.outcomes
+where ships.name = outcomes.ship
+and outcomes.result="sunk";
+
+6.
+
+select date(now()) as date from labor_sql.battles;
+
+7.
+
+select distinct product.maker, pc.price 
+from labor_sql.product,labor_sql.pc
+where  product.type = "Printer"
+and price <=(select MIN(pc.price) from  labor_sql.pc);
+
+8. 	
+
+select Round(AVG(pc.hd)) as avg_hd from labor_sql.pc
+where pc.model in
+(
+select distinct pc.model
+from labor_sql.pc,labor_sql.product 
+where pc.model in
+(
+select distinct product.model from labor_sql.product
+where maker in (
+select distinct product.maker
+from labor_sql.pc
+where  maker in (select maker from product where type='PC')
+and maker in (select maker from product where type='Printer'))
+and type ="PC"
+)
+)
+;
+
+9.
+
+Select
+	ships.name, classes.numGuns, classes.bore, classes.displacement, classes.type, 
+    classes.country,ships.launched,classes.class 
+From
+	labor_sql.ships
+	Join labor_sql.classes On ships.class=classes.class
+Where 
+	Case WHEN classes.numGuns = 12 THEN 1 ELSE 0 END + 
+	Case WHEN classes.bore = 16 THEN 1 ELSE 0 END +
+	Case WHEN classes.displacement = 46000 THEN 1 ELSE 0 END +
+	Case WHEN classes.type = 'bc' THEN 1 ELSE 0 END +
+	Case WHEN ships.launched = 1941 THEN 1 ELSE 0 END +
+	Case WHEN classes.class='North Carolina' THEN 1 ELSE 0 END +
+	Case WHEN classes.country='GT.Britain'THEN 1 ELSE 0 END >= 4;
+
+10.
+
+select ships.name from labor_sql.ships
+where launched <1942
+union 
+select distinct  outcomes.ship from labor_sql.outcomes,labor_sql.ships,labor_sql.battles
+where outcomes.battle=battles.name
+and battles.date <"1942-00-00";
