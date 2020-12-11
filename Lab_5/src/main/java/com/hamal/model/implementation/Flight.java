@@ -14,9 +14,6 @@ public class Flight implements BasicModel {
     private String arrivalTime;
     private Integer state;
 
-    private Plane planeByPlaneId;
-    private State stateByStateId;
-
     public Flight(final Integer id,final Integer planeId,final String flightNumber,final String direction,final String departureTime,final String arrivalTime, final Integer state) {
         this.id = id;
         this.planeId = planeId;
@@ -122,8 +119,6 @@ public class Flight implements BasicModel {
                 ", direction='" + direction + '\'' +
                 ", departureTime=" + departureTime +
                 ", arrivalTime=" + arrivalTime +
-                ", planeByPlaneId=" + planeByPlaneId +
-                ", stateByStateId=" + stateByStateId +
                 '}';
     }
 

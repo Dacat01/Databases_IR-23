@@ -8,29 +8,6 @@
     <artifactId>Lab_5_Hibernate</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-
-    <!--
-    1.  copy pom.xml code
-
-    2. налаштувати DataBase
-    root
-    Lfybkj04
-    hamal_db
-
-    3. src -> main -> click on java -> new package -> name =  com.hamal
-
-    4. click on name (Lab_5(V_2)) -> add framework support -> Hibernate
-    check default first check
-
-    ...
-
-    5. add to hibernate.cfg username & password
-
-    6. Перенести її у Resources
-
-    -->
-
-
     <build>
 
         <pluginManagement>
@@ -70,33 +47,6 @@
 
         </plugins>
     </build>
-    <!--
-        <modules>
-            <module>maven</module>
-        </modules>
-
-        <reporting>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-checkstyle-plugin</artifactId>
-                    <version>3.0.0</version>
-                    <reportSets>
-                        <reportSet>
-                            <reports>
-                                <report>checkstyle</report>
-                            </reports>
-                        </reportSet>
-                    </reportSets>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-pmd-plugin</artifactId>
-                    <version>3.13.0</version>
-                </plugin>
-            </plugins>
-        </reporting>
-        -->
 
     <dependencies>
         <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->

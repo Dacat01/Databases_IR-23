@@ -2,8 +2,6 @@ package com.hamal.model.implementation;
 
 
 import javax.persistence.*;
-
-
 import com.hamal.model.BasicModel;
 
 public class Airline implements  BasicModel  {
