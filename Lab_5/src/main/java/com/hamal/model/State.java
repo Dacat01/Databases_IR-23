@@ -1,11 +1,10 @@
-package com.hamal.Hibernate;
+package com.hamal.model;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+
 
 @Entity
+@Table(name = "state", schema = "hamal_db")
 public class State {
     private Integer id;
     private String state;

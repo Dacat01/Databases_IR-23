@@ -2,15 +2,16 @@ package com.hamal.service.implementation;
 
 import com.hamal.DAO.BasicDAO;
 import com.hamal.DAO.implementation.CurrentLocationDAO;
-import com.hamal.model.implementation.CurrentLocation;
+import com.hamal.model.CurrentLocation;
+import com.hamal.service.BasicService;
 
-public class CurrentLocationService extends IBasicService<CurrentLocation>{
+public class CurrentLocationService implements BasicService<CurrentLocation,Integer>{
 
-    private final BasicDAO<CurrentLocation, Integer> currentLocationDAOImplementation = new CurrentLocationDAO();
+    BasicDAO currentLocationDAO = new CurrentLocationDAO();
 
     @Override
-    public final BasicDAO<CurrentLocation, Integer> getDAO() {
-        return currentLocationDAOImplementation;
+    public BasicDAO<CurrentLocation, Integer> getDAO() {
+        return currentLocationDAO;
     }
 
 }

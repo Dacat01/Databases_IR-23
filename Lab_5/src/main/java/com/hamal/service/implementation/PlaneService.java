@@ -2,14 +2,16 @@ package com.hamal.service.implementation;
 
 import com.hamal.DAO.BasicDAO;
 import com.hamal.DAO.implementation.PlaneDAO;
-import com.hamal.model.implementation.Plane;
+import com.hamal.model.Plane;
+import com.hamal.service.BasicService;
 
-public class PlaneService extends IBasicService<Plane> {
+public class PlaneService implements BasicService<Plane, Integer> {
 
-    private final BasicDAO<Plane, Integer> planeDAOImplementation = new PlaneDAO();
+    BasicDAO planeDAO = new PlaneDAO();
 
     @Override
-    public final BasicDAO<Plane, Integer> getDAO() {
-        return planeDAOImplementation;
+    public BasicDAO<Plane, Integer> getDAO() {
+        return planeDAO;
     }
+
 }

@@ -1,17 +1,21 @@
 package com.hamal.controller.implementation;
 
 
-import com.hamal.model.implementation.CurrentLocation;
+import com.hamal.model.CurrentLocation;
 import com.hamal.service.implementation.CurrentLocationService;
-import com.hamal.service.implementation.IBasicService;
+import com.hamal.service.BasicService;
+import com.hamal.controller.BasicController;
 
-
-public  class CurrentLocationController extends IBasicController <CurrentLocation>  {
-
-    private static final CurrentLocationService CURRENT_LOCATION_SERVICE = new CurrentLocationService();
+public class CurrentLocationController implements BasicController<CurrentLocation, Integer> {
 
     @Override
-    public  final IBasicService<CurrentLocation> getService() {
-        return CURRENT_LOCATION_SERVICE;
+    public BasicService getService() {
+        return new CurrentLocationService();
     }
+
+    @Override
+    public void printHeaders() {
+        //      System.out.println(Airline.getHeaders());
+    }
+
 }

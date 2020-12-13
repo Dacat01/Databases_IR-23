@@ -1,28 +1,18 @@
-package com.hamal.model.implementation;
+package com.hamal.model;
 
-import com.hamal.model.BasicModel;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import java.sql.Timestamp;
 
-import javax.persistence.*;
-
-
-public class Flight implements BasicModel {
+@Entity
+public class Flight {
     private Integer id;
-    private Integer planeId;
     private String flightNumber;
     private String direction;
-    private String departureTime;
-    private String arrivalTime;
-    private Integer state;
-
-    public Flight(final Integer id,final Integer planeId,final String flightNumber,final String direction,final String departureTime,final String arrivalTime, final Integer state) {
-        this.id = id;
-        this.planeId = planeId;
-        this.flightNumber = flightNumber;
-        this.direction = direction;
-        this.departureTime = departureTime;
-        this.arrivalTime = arrivalTime;
-        this.state = state;
-    }
+    private Timestamp departureTime;
+    private Timestamp arrivalTime;
 
     @Id
     @Column(name = "id")
@@ -33,7 +23,6 @@ public class Flight implements BasicModel {
     public void setId(Integer id) {
         this.id = id;
     }
-
 
     @Basic
     @Column(name = "flight_number")
@@ -57,25 +46,23 @@ public class Flight implements BasicModel {
 
     @Basic
     @Column(name = "departure_time")
-    public String getDepartureTime() {
+    public Timestamp getDepartureTime() {
         return departureTime;
     }
 
-    public void setDepartureTime(String departureTime) {
+    public void setDepartureTime(Timestamp departureTime) {
         this.departureTime = departureTime;
     }
 
-
     @Basic
     @Column(name = "arrival_time")
-    public String getArrivalTime() {
+    public Timestamp getArrivalTime() {
         return arrivalTime;
     }
 
-    public void setArrivalTime(String arrivalTime) {
+    public void setArrivalTime(Timestamp arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -105,12 +92,6 @@ public class Flight implements BasicModel {
         return result;
     }
 
-    public final Integer getState() {return state;}
-    public final void setState(final Integer state) {this.state = state;}
-
-    public final Integer getPlaneId() {return planeId;}
-    public final void setPlaneId (final Integer planeId) {this.planeId = planeId; }
-
     @Override
     public String toString() {
         return "Flight{" +
@@ -121,6 +102,4 @@ public class Flight implements BasicModel {
                 ", arrivalTime=" + arrivalTime +
                 '}';
     }
-
 }
-

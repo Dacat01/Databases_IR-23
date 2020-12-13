@@ -1,9 +1,9 @@
-package com.hamal.Hibernate;
+package com.hamal.model;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "current_location", schema = "hamal_db", catalog = "")
+@Table(name = "current_location", schema = "hamal_db")
 public class CurrentLocation {
     private Integer id;
     private String country;

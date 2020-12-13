@@ -2,14 +2,15 @@ package com.hamal.service.implementation;
 
 import com.hamal.DAO.BasicDAO;
 import com.hamal.DAO.implementation.AirlineDAO;
-import com.hamal.model.implementation.Airline;
+import com.hamal.model.Airline;
+import com.hamal.service.BasicService;
 
-public class AirlineService extends IBasicService<Airline> {
+public class AirlineService implements BasicService<Airline, Integer> {
 
-    private final BasicDAO<Airline, Integer> airlineDAOImplementation = new AirlineDAO();
+     BasicDAO airlineDAO = new AirlineDAO();
 
     @Override
-    public final BasicDAO<Airline, Integer> getDAO() {
-        return airlineDAOImplementation;
+    public BasicDAO<Airline, Integer> getDAO() {
+        return airlineDAO;
     }
 }

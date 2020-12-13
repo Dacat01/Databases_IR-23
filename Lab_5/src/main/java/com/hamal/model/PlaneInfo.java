@@ -1,37 +1,27 @@
-package com.hamal.model.implementation;
+package com.hamal.model;
 
+import java.io.Serializable;
 
+import com.hamal.DAO.implementation.*;
 import javax.persistence.*;
 
-import com.hamal.model.BasicModel;
-
-
-public class PlaneInfo implements  BasicModel  {
-
+@Entity
+@Table(name = "plane_info", schema = "hamal_db")
+public class PlaneInfo {
     private Integer planeId;
     private String planeIdentifier;
     private String type;
-    private Integer totalHours;
-    private Integer maximumSpeed;
-
-
-    public final Integer getId() {return null;}
-
-    public PlaneInfo(final Integer planeId, final String planeIdentifier, final String type,final Integer totalHours,final Integer maximumSpeed) {
-        this.planeId = planeId;
-        this.planeIdentifier = planeIdentifier;
-        this.type = type;
-        this.totalHours = totalHours;
-        this.maximumSpeed = maximumSpeed;
-    }
+    private Integer totalHrs;
+    private Integer maxSpeed;
+    private Plane planeByPlaneId;
 
     @Id
     @Column(name = "Plane_id")
-    public Integer getplaneId() {
+    public Integer getPlaneId() {
         return planeId;
     }
 
-    public void setplaneId(Integer planeId) {
+    public void setPlaneId(Integer planeId) {
         this.planeId = planeId;
     }
 
@@ -56,23 +46,23 @@ public class PlaneInfo implements  BasicModel  {
     }
 
     @Basic
-    @Column(name = "total_hours")
-    public Integer getTotalHours() {
-        return totalHours;
+    @Column(name = "total_hrs")
+    public Integer getTotalHrs() {
+        return totalHrs;
     }
 
-    public void getTotalHours(Integer totalHours) {
-        this.totalHours = totalHours;
+    public void setTotalHrs(Integer totalHrs) {
+        this.totalHrs = totalHrs;
     }
 
     @Basic
     @Column(name = "max_speed")
-    public Integer getMaximumSpeed() {
-        return maximumSpeed;
+    public Integer getMaxSpeed() {
+        return maxSpeed;
     }
 
-    public void setMaximumSpeed(Integer maxSpeed) {
-        this.maximumSpeed = maximumSpeed;
+    public void setMaxSpeed(Integer maxSpeed) {
+        this.maxSpeed = maxSpeed;
     }
 
     @Override
@@ -86,8 +76,8 @@ public class PlaneInfo implements  BasicModel  {
         if (planeIdentifier != null ? !planeIdentifier.equals(planeInfo.planeIdentifier) : planeInfo.planeIdentifier != null)
             return false;
         if (type != null ? !type.equals(planeInfo.type) : planeInfo.type != null) return false;
-        if (totalHours != null ? !totalHours.equals(planeInfo.totalHours) : planeInfo.totalHours != null) return false;
-        if (maximumSpeed != null ? !maximumSpeed.equals(planeInfo.maximumSpeed) : planeInfo.maximumSpeed != null) return false;
+        if (totalHrs != null ? !totalHrs.equals(planeInfo.totalHrs) : planeInfo.totalHrs != null) return false;
+        if (maxSpeed != null ? !maxSpeed.equals(planeInfo.maxSpeed) : planeInfo.maxSpeed != null) return false;
 
         return true;
     }
@@ -97,9 +87,19 @@ public class PlaneInfo implements  BasicModel  {
         int result = planeId != null ? planeId.hashCode() : 0;
         result = 31 * result + (planeIdentifier != null ? planeIdentifier.hashCode() : 0);
         result = 31 * result + (type != null ? type.hashCode() : 0);
-        result = 31 * result + (totalHours != null ? totalHours.hashCode() : 0);
-        result = 31 * result + (maximumSpeed != null ? maximumSpeed.hashCode() : 0);
+        result = 31 * result + (totalHrs != null ? totalHrs.hashCode() : 0);
+        result = 31 * result + (maxSpeed != null ? maxSpeed.hashCode() : 0);
         return result;
+    }
+
+    @OneToOne
+    @JoinColumn(name = "Plane_id", referencedColumnName = "id", nullable = false)
+    public Plane getPlaneByPlaneId() {
+        return planeByPlaneId;
+    }
+
+    public void setPlaneByPlaneId(Plane planeByPlaneId) {
+        this.planeByPlaneId = planeByPlaneId;
     }
 
     @Override
@@ -108,8 +108,8 @@ public class PlaneInfo implements  BasicModel  {
                 "planeId=" + planeId +
                 ", planeIdentifier='" + planeIdentifier + '\'' +
                 ", type='" + type + '\'' +
-                ", totalHrs=" + totalHours +
-                ", maxSpeed=" + maximumSpeed +
+                ", totalHrs=" + totalHrs +
+                ", maxSpeed=" + maxSpeed +
                 '}';
     }
 

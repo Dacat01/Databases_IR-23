@@ -1,19 +1,18 @@
-package com.hamal.model.implementation;
+package com.hamal.model;
 
-
+/*
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+*/
 import javax.persistence.*;
-import com.hamal.model.BasicModel;
 
-public class Airline implements  BasicModel  {
-
+@Entity
+@Table(name = "airline")
+public class Airline {
     private Integer id;
     private String name;
-
-    public Airline(final Integer id, final String name) {
-        this.id = id;
-        this.name = name;
-
-    }
 
     @Id
     @Column(name = "id")
@@ -62,6 +61,4 @@ public class Airline implements  BasicModel  {
                 ", name='" + name + '\'' +
                 '}';
     }
-
 }
-
