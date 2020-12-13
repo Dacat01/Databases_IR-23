@@ -10,13 +10,15 @@
         <property name="connection.username">root</property>
         <property name="connection.password">Lfybkj04</property>
 
-        <mapping class="com.hamal.Hibernate.Airline"/>
-        <mapping class="com.hamal.Hibernate.CurrentLocation"/>
-        <mapping class="com.hamal.Hibernate.Flight"/>
-        <mapping class="com.hamal.Hibernate.Plane"/>
-        <mapping class="com.hamal.Hibernate.PlaneInfo"/>
-        <mapping class="com.hamal.Hibernate.State"/>
-        <!-- <property name="connection.username"/> -->
+        <mapping class="com.hamal.model.Airline"/>
+        <mapping class="com.hamal.model.CurrentLocation"/>
+        <mapping class="com.hamal.model.State"/>
+        <mapping class="com.hamal.model.PlaneInfo"/>
+        <mapping class="com.hamal.model.Plane"/>
+        <mapping class="com.hamal.model.Flight"/>
+
+
+         <!-- <property name="connection.username"/> -->
         <!-- <property name="connection.password"/> -->
 
         <!-- DB schema will be updated if needed -->

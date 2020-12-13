@@ -1,8 +1,9 @@
-package com.hamal.Hibernate;
+package com.hamal.model;
 
 import javax.persistence.*;
 
 @Entity
+@Table(name = "Plane", schema = "hamal_db")
 public class Plane {
     private Integer id;
     private Airline airlineByAirlineId;
@@ -59,8 +60,8 @@ public class Plane {
     public String toString() {
         return "Plane{" +
                 "id=" + id +
-                ", airlineByAirlineId=" + airlineByAirlineId +
-                ", currentLocationByCurrentLocationId=" + currentLocationByCurrentLocationId +
+                ", AirlineId=" + airlineByAirlineId.getId() +
+                ", currentLocationId=" + currentLocationByCurrentLocationId.getId() +
                 '}';
     }
 }

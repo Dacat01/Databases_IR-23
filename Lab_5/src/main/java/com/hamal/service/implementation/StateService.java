@@ -2,14 +2,16 @@ package com.hamal.service.implementation;
 
 import com.hamal.DAO.BasicDAO;
 import com.hamal.DAO.implementation.StateDAO;
-import com.hamal.model.implementation.State;
+import com.hamal.model.State;
+import com.hamal.service.BasicService;
 
-public class StateService extends IBasicService<State> {
+public class StateService implements BasicService<State,Integer>{
 
-    private final BasicDAO<State, Integer> stateDAOImplementation = new StateDAO();
+    BasicDAO stateDAO = new StateDAO();
 
     @Override
-    public final BasicDAO<State, Integer> getDAO() {
-        return stateDAOImplementation;
+    public BasicDAO<State, Integer> getDAO() {
+        return stateDAO;
     }
+
 }

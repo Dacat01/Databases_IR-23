@@ -6,8 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Lab_5_Hibernate" />
-        <module name="Lab_5" />
+        <module name="com.hamal" />
       </profile>
     </annotationProcessing>
   </component>

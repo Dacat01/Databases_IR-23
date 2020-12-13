@@ -1,16 +1,21 @@
 package com.hamal.controller.implementation;
 
-
-import com.hamal.model.implementation.Flight;
+import com.hamal.model.Flight;
 import com.hamal.service.implementation.FlightService;
-import com.hamal.service.implementation.IBasicService;
+import com.hamal.service.BasicService;
+import com.hamal.controller.BasicController;
 
-public class FlightController extends IBasicController<Flight> {
-
-    private static final FlightService FLIGHT_SERVICE = new FlightService();
+public class FlightController implements BasicController<Flight, Integer> {
 
     @Override
-    public final IBasicService<Flight> getService() {
-        return FLIGHT_SERVICE;
+    public BasicService getService() {
+        return new FlightService();
     }
+
+    @Override
+    public void printHeaders() {
+
+        //     System.out.println(Airline.getHeaders());
+    }
+
 }

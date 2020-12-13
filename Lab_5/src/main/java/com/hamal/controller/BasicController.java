@@ -2,16 +2,44 @@ package com.hamal.controller;
 
 
 import com.hamal.service.BasicService;
+import com.hamal.view.Printable;
 
+
+//
+import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
+//
 
-public interface BasicController<T> {
+public interface BasicController<T,id> {
+    BasicService getService();
 
-    void getById(int id) throws SQLException;
-    void getAll() throws SQLException;
-    void delete(int id) throws SQLException;
-    void update(T entity) throws SQLException;
-    void create(T entity) throws SQLException;
+    void printHeaders();
 
-    BasicService<T> getService();
+    default void getAllEntities() throws SQLException {
+        List<T> entities = getService().findAll();
+        printHeaders();
+        for (T entity : entities) {
+            System.out.println(entity);
+        }
+    }
+
+    default Printable getEntity(Integer id) throws SQLException {
+        T entity = (T) getService().findById(id);
+        printHeaders();
+        System.out.println(entity);
+        return null;
+    }
+
+    default int createEntity(T entity) throws SQLException {
+        return getService().create(entity);
+    }
+
+    default void updateEntity(T entity) throws SQLException {
+        getService().update(entity);
+    }
+
+    default int removeEntity(Integer id) throws SQLException {
+        return getService().delete(id);
+    }
 }

@@ -2,7 +2,7 @@ package com.hamal.view;
 
 
 import com.hamal.controller.implementation.*;
-import com.hamal.model.implementation.*;
+import com.hamal.model.*;
 
 import java.sql.SQLException;
 import java.util.LinkedHashMap;
@@ -14,19 +14,16 @@ public class MyView {
 
     private final AirlineController airlineController = new AirlineController();
     private final CurrentLocationController currentLocationController = new CurrentLocationController();
-    private final PlaneInfoController planeInfoController = new PlaneInfoController();
     private final StateController stateController = new StateController();
-    private final FlightController flightController = new FlightController();
+    private final PlaneInfoController planeInfoController = new PlaneInfoController();
     private final PlaneController planeController = new PlaneController();
-
+    private final FlightController flightController = new FlightController();
 
     private Map<String,String> menu;
-    private Map<String,Printable> methodsMenu;          //об'єкт інтерфейсу Printable для запуску методу print
+    private Map<String,Printable> methodsMenu;  //об'єкт інтерфейсу Printable для запуску методу print
 
 
     private static Scanner input = new Scanner(System.in);
-
-
 
     public MyView() {
         menu = new LinkedHashMap<>();
@@ -69,6 +66,7 @@ public class MyView {
         menu.put("64", "64 - Update plane by ID");
         menu.put("65", "65 - Create plane\n");
 
+
         menu.put("Q", "Q - exit\n");
 
                                                             // запаковується метод в  об'єкт інтерфейсу Printable (переназиває себе не метод print)
@@ -107,347 +105,361 @@ public class MyView {
         methodsMenu.put("63", this::deletePlaneById);
         methodsMenu.put("64", this::updatePlaneById);
         methodsMenu.put("65", this::createPlane);
+
+
     }
 
 //--------------AIRLINE FUNCTIONS---------------------
 
     private void getAllAirline() throws SQLException{
         System.out.println("\nTable: Airline");
-        airlineController.getAll();
+        airlineController.getAllEntities();
     }
 
     private void getAirlineById() throws SQLException {
         System.out.println("Enter Airline ID:");
         int id = input.nextInt();
-        input.nextLine();
-        airlineController.getById(id);
+        airlineController.getEntity(id);
     }
 
     private void deleteAirlineById() throws SQLException {
         System.out.println("Enter ID to delete Airline: ");
         int id = input.nextInt();
-
-        airlineController.delete(id);
+        airlineController.removeEntity(id);
     }
 
 
     private void createAirline() throws SQLException {
+        Airline entity  = new Airline();
+
+        System.out.println("Enter new airline id: ");
+        int id = input.nextInt();
+        entity.setId(id);
+
+        input.nextLine();
+
         System.out.println("Enter new airline name: ");
         String name = input.nextLine();
-        Airline entity = new Airline(0, name);
-        airlineController.create(entity);
+        entity.setName(name);
+
+
+        airlineController.createEntity(entity);
+
     }
 
     private void updateAirlineById() throws SQLException {
+        Airline entity  = new Airline();
+
 
         System.out.println("Enter airline id to update: ");
         int id = input.nextInt();
+        entity.setId(id);
+
         input.nextLine();
 
-        Airline oldAirline = airlineController.getService().getById(id);
-        System.out.println("Enter new name for airline: ");
+        System.out.println("Enter new airline name: ");
         String name = input.nextLine();
+        entity.setName(name);
 
-        if (name.equals("")) name = oldAirline.getName();
-
-
-        Airline entity = new Airline(id, name);
-        airlineController.update(entity);
+        airlineController.updateEntity(entity);
     }
 //-------------------------------------------------------
 
 //----------------CURRENT LOCATION FUNCTIONS-------------
 
-private void getAllCurrentLocation() throws SQLException{
-
-    System.out.println("\nTable: current_location");
-    currentLocationController.getAll();
-}
+    private void getAllCurrentLocation() throws SQLException{
+        System.out.println("\nTable: Current Location");
+        currentLocationController.getAllEntities();
+    }
 
     private void getCurrentLocationById() throws SQLException {
-        System.out.println("Enter current location ID:");
+        System.out.println("Enter Current Location ID:");
         int id = input.nextInt();
-        input.nextLine();
-        currentLocationController.getById(id);
+        currentLocationController.getEntity(id);
     }
 
     private void deleteCurrentLocationById() throws SQLException {
-        System.out.println("Enter ID to delete Airline: ");
+
+        System.out.println("Enter ID to delete CurrentLocation: ");
         int id = input.nextInt();
-        input.nextLine();
-        currentLocationController.delete(id);
+        currentLocationController.removeEntity(id);
     }
 
 
     private void createCurrentLocation() throws SQLException {
+
+        CurrentLocation entity  = new CurrentLocation();
+
+        System.out.println("Enter new current location id: ");
+        int id = input.nextInt();
+        entity.setId(id);
+
         System.out.println("Enter new current location country: ");
         String country = input.nextLine();
+        entity.setCountry(country);
+
         System.out.println("Enter new current location city: ");
         String city = input.nextLine();
+        entity.setCity(city);
+
         System.out.println("Enter new current location airport: ");
-        String location = input.nextLine();
+        String airportLocation = input.nextLine();
+        entity.setAirport(airportLocation);
 
-        CurrentLocation entity = new CurrentLocation(0,country, city,location);
-
-        currentLocationController.create(entity);
+        currentLocationController.createEntity(entity);
     }
 
     private void updateCurrentLocationById() throws SQLException {
+        CurrentLocation entity  = new CurrentLocation();
+
 
         System.out.println("Enter current location id to update: ");
         int id = input.nextInt();
+        entity.setId(id);
         input.nextLine();
-
-        CurrentLocation oldCurrentLocation = currentLocationController.getService().getById(id);
-
 
         System.out.println("Enter new name for country: ");
         String country = input.nextLine();
+        entity.setCountry(country);
 
         System.out.println("Enter new name for city: ");
         String city = input.nextLine();
+        entity.setCity(city);
 
         System.out.println("Enter new name for airport: ");
         String airport = input.nextLine();
+        entity.setAirport(airport);
 
-        if (country.equals("")) country = oldCurrentLocation.getCountry();
-        if (city.equals("")) city = oldCurrentLocation.getCity();
-        if (airport.equals("")) airport = oldCurrentLocation.getAirport();
-
-        CurrentLocation entity = new CurrentLocation(id,country, city,airport);
-
-        currentLocationController.update(entity);
+        currentLocationController.updateEntity(entity);
 
     }
 //-------------------------------------------------------
 
 //----------------PLANE INFO FUNCTIONS-------------------
 
-private void getAllPlaneInfo() throws SQLException{
+    private void getAllPlaneInfo() throws SQLException{
 
-    System.out.println("\nTable: plane_info");
-    planeInfoController.getAll();
-}
+        System.out.println("\nTable: plane_info");
+        planeInfoController.getAllEntities();
+    }
 
     private void getPlaneInfoById() throws SQLException {
         System.out.println("Enter plane ID:");
         int id = input.nextInt();
         input.nextLine();
-        planeInfoController.getById(id);
+        planeInfoController.getEntity(id);
     }
 
     private void deletePlaneInfoById() throws SQLException {
         System.out.println("Enter plane ID to delete: ");
         int id = input.nextInt();
         input.nextLine();
-        planeInfoController.delete(id);
+        planeInfoController.removeEntity(id);
     }
 
 
     private void createPlaneInfo() throws SQLException {
 
+        PlaneInfo entity  = new PlaneInfo();
+
         System.out.println("Enter new Plane Id: ");
         int id = input.nextInt();
-
         input.nextLine();
+        entity.setPlaneId(id);
 
         System.out.println("Enter new Plane Identifier: ");
         String planeIdentifier = input.nextLine();
+        entity.setPlaneIdentifier(planeIdentifier);
 
         System.out.println("Enter new type of plane: ");
         String type = input.nextLine();
+        entity.setType(type);
 
         System.out.println("Enter new total hours: ");
         int totalHours = input.nextInt();
+        entity.setTotalHrs(totalHours);
 
         System.out.println("Enter new maximum speed: ");
         int maximumSpeed = input.nextInt();
-        PlaneInfo entity = new PlaneInfo(id, planeIdentifier, type,totalHours,maximumSpeed);
+        entity.setMaxSpeed(maximumSpeed);
 
-        planeInfoController.create(entity);
+        planeInfoController.createEntity(entity);
+
     }
 
     private void updatePlaneInfoById() throws SQLException {
-
+        PlaneInfo entity  = new PlaneInfo();
         System.out.println("Enter current plane id to update: ");
         int id = input.nextInt();
         input.nextLine();
-
-        PlaneInfo oldPlaneInfo = planeInfoController.getService().getById(id);
-
+        entity.setPlaneId(id);
 
         System.out.println("Enter new Plane Identifier: ");
         String planeIdentifier = input.nextLine();
+        entity.setPlaneIdentifier(planeIdentifier);
 
         System.out.println("Enter new type of plane: ");
         String type = input.nextLine();
+        entity.setType(type);
 
         System.out.println("Enter new total hours: ");
         int totalHours = input.nextInt();
+        entity.setTotalHrs(totalHours);
 
         System.out.println("Enter new maximum speed: ");
         int maximumSpeed = input.nextInt();
+        entity.setMaxSpeed(maximumSpeed);
 
-        if (planeIdentifier.equals("")) planeIdentifier = oldPlaneInfo.getPlaneIdentifier();
-        if (type.equals("")) type = oldPlaneInfo.getType();
+        planeInfoController.updateEntity(entity);
 
-        PlaneInfo entity = new PlaneInfo(id,planeIdentifier, type,totalHours,maximumSpeed);
 
-        planeInfoController.update(entity);
     }
-//-------------------------------------------------------
+    //-------------------------------------------------------
 
-//----------------STATE  FUNCTIONS-----------------------
+    //----------------STATE  FUNCTIONS-----------------------
     private void getAllState() throws SQLException{
-
-        System.out.println("\nTable: state");
-        stateController.getAll();
+        System.out.println("\nTable: Current Location");
+        stateController.getAllEntities();
     }
 
     private void getStateById() throws SQLException {
+
         System.out.println("Enter state ID:");
         int id = input.nextInt();
-        input.nextLine();
-        stateController.getById(id);
+        currentLocationController.getEntity(id);
+
     }
 
     private void deleteStateById() throws SQLException {
         System.out.println("Enter state ID to delete: ");
         int id = input.nextInt();
-        input.nextLine();
-        stateController.delete(id);
+        stateController.removeEntity(id);
     }
 
 
     private void createState() throws SQLException {
-        System.out.println("Enter new state: ");
+
+        State entity  = new State();
+
+        System.out.println("Enter new state id: ");
+        int id = input.nextInt();
+        entity.setId(id);
+
+        input.nextLine();
+
+        System.out.println("Enter new state name: ");
         String name = input.nextLine();
-        State entity = new State(0, name);
-        stateController.create(entity);
+        entity.setState(name);
+
+        stateController.createEntity(entity);
     }
 
     private void updateStateById() throws SQLException {
 
+        State entity  = new State();
+
+
         System.out.println("Enter state id to update: ");
         int id = input.nextInt();
+        entity.setId(id);
+
         input.nextLine();
 
-        State oldState = stateController.getService().getById(id);
-        System.out.println("Enter new state: ");
-        String state = input.nextLine();
-        if (state.equals("")) state = oldState.getState();
-        State entity = new State(id, state);
-        stateController.update(entity);
+        System.out.println("Enter new state name: ");
+        String name = input.nextLine();
+        entity.setState(name);
+
+        stateController.updateEntity(entity);
     }
 
 //-------------------------------------------------------
-
 //----------------FLIGHT FUNCTIONS-----------------------
 private void getAllFlight() throws SQLException{
-        System.out.println("\nTable: flight");
-        flightController.getAll();
-    }
+    System.out.println("\nTable: flight");
+    flightController.getAllEntities();
+}
 
     private void getFlightById() throws SQLException {
         System.out.println("Enter flight ID:");
         int id = input.nextInt();
         input.nextLine();
-        flightController.getById(id);
+        flightController.getEntity(id);
     }
 
     private void deleteFlightById() throws SQLException {
         System.out.println("Enter flight ID to delete: ");
         int id = input.nextInt();
-        flightController.delete(id);
+        flightController.removeEntity(id);
     }
-
-
     private void createFlight() throws SQLException {
+        Flight entity  = new Flight();
+
         System.out.println("Enter new plane Id: ");
         int planeId = input.nextInt();
         input.nextLine();
+        entity.setId(planeId);
 
         System.out.println("Enter new flight number: ");
         String flightNumber = input.nextLine();
+        entity.setFlightNumber(flightNumber);
 
         System.out.println("Enter new direction: ");
         String direction = input.nextLine();
+        entity.setDirection(direction);
+        flightController.createEntity(entity);
 
-        System.out.println("Enter new departure time: ");
-        String departureTime = input.nextLine();
 
-        System.out.println("Enter new arrival time ");
-        String arrivalTime = input.nextLine();
-
-        System.out.println("Enter new state");
-        int state = input.nextInt();
-
-        Flight entity = new Flight(0, planeId,flightNumber,direction,departureTime,arrivalTime,state);
-        flightController.create(entity);
     }
 
     private void updateFlightById() throws SQLException {
+        Flight entity  = new Flight();
 
-        System.out.println("Enter flight id to update: ");
-        int id = input.nextInt();
-        input.nextLine();
-
-        Flight oldFlight = flightController.getService().getById(id);
-
-        System.out.println("Enter new plane Id: ");
+        System.out.println("Enter  plane Id to update: ");
         int planeId = input.nextInt();
         input.nextLine();
+        entity.setId(planeId);
 
         System.out.println("Enter new flight number: ");
         String flightNumber = input.nextLine();
+        entity.setFlightNumber(flightNumber);
 
         System.out.println("Enter new direction: ");
         String direction = input.nextLine();
-
-        System.out.println("Enter new departure time: ");
-        String departureTime = input.nextLine();
-
-        System.out.println("Enter new arrival time ");
-        String arrivalTime = input.nextLine();
-
-        System.out.println("Enter new state: ");
-        int state = input.nextInt();
-
-        if (flightNumber.equals("")) flightNumber = oldFlight.getFlightNumber();
-        if (direction.equals("")) direction = oldFlight.getDirection();
-        if (departureTime.equals("")) departureTime = oldFlight.getDepartureTime();
-        if (arrivalTime.equals("")) arrivalTime = oldFlight.getArrivalTime();
-
-
-        Flight entity = new Flight(id, planeId,flightNumber,direction,departureTime,arrivalTime,state);
-        flightController.update(entity);
-
-
+        entity.setDirection(direction);
+        flightController.updateEntity(entity);
     }
 //-------------------------------------------------------
 
-//----------------PLANE  FUNCTIONS-----------------------
-private void getAllPlane() throws SQLException{
-    System.out.println("\nTable: plane");
-    planeController.getAll();
-}
+
+
+
+    //----------------PLANE  FUNCTIONS-----------------------
+    private void getAllPlane() throws SQLException{
+        System.out.println("\nTable: plane");
+        planeController.getAllEntities();
+    }
 
     private void getPlaneById() throws SQLException {
         System.out.println("Enter plane ID:");
         int id = input.nextInt();
         input.nextLine();
-        planeController.getById(id);
+        planeController.getEntity(id);
     }
 
     private void deletePlaneById() throws SQLException {
         System.out.println("Enter ID to delete plane: ");
         int id = input.nextInt();
         input.nextLine();
-        planeController.delete(id);
+        planeController.removeEntity(id);
     }
 
 
     private void createPlane() throws SQLException {
+        Plane entity  = new Plane();
+
+        System.out.println("Enter new Id: ");
+        int Id = input.nextInt();
+        entity.setId(Id);
 
         System.out.println("Enter new airline Id: ");
         int airlineId = input.nextInt();
@@ -455,15 +467,15 @@ private void getAllPlane() throws SQLException{
         System.out.println("Enter new current location Id: ");
         int currentLocationId = input.nextInt();
 
-        Plane entity = new Plane(0, airlineId,currentLocationId);
-        planeController.create(entity);
+        planeController.createEntity(entity);
     }
 
     private void updatePlaneById() throws SQLException {
+        Plane entity  = new Plane();
 
-        System.out.println("Enter Plane id to update: ");
-        int id = input.nextInt();
-        input.nextLine();
+        System.out.println("Enter Id to update: ");
+        int Id = input.nextInt();
+        entity.setId(Id);
 
         System.out.println("Enter new airline Id: ");
         int airlineId = input.nextInt();
@@ -471,12 +483,11 @@ private void getAllPlane() throws SQLException{
         System.out.println("Enter new current location Id: ");
         int currentLocationId = input.nextInt();
 
-
-        Plane entity = new Plane(id, airlineId,currentLocationId);
-        planeController.update(entity);
+        planeController.updateEntity(entity);
     }
+
+
 //-------------------------------------------------------
-    
 //------------------- MENU ------------------------------
 
     private  void outputMenu() {
@@ -496,6 +507,8 @@ private void getAllPlane() throws SQLException{
                 methodsMenu.get(keyMenu).print();
             } catch (Exception ignored) {}
         } while (!keyMenu.equals("Q"));
+
+
     }
 
 }
