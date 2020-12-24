@@ -13,9 +13,4 @@ public class CurrentLocationController implements BasicController<CurrentLocatio
         return new CurrentLocationService();
     }
 
-    @Override
-    public void printHeaders() {
-        //      System.out.println(Airline.getHeaders());
-    }
-
 }

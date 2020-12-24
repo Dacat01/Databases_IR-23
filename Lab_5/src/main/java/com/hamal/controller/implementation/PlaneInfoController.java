@@ -13,11 +13,5 @@ public class PlaneInfoController implements BasicController<PlaneInfo, Integer> 
         return new PlaneInfoService();
     }
 
-    @Override
-    public void printHeaders() {
-
-        //     System.out.println(Airline.getHeaders());
-    }
-
 }
 

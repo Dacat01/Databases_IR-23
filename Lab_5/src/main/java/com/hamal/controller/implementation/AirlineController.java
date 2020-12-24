@@ -12,12 +12,5 @@ public class AirlineController implements BasicController<Airline, Integer> {
     public BasicService getService() {
         return new AirlineService();
     }
-
-    @Override
-    public void printHeaders() {
-
-   //     System.out.println(Airline.getHeaders());
-    }
-
 }
 

@@ -21,7 +21,7 @@ public class MyView {
 
 
     private Map<String,String> menu;
-    private Map<String,Printable> methodsMenu;  //об'єкт інтерфейсу Printable для запуску методу print
+    private Map<String,Printable> methodsMenu;          //об'єкт інтерфейсу Printable для запуску методу print
 
 
     private static Scanner input = new Scanner(System.in);

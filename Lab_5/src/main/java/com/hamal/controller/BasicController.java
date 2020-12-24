@@ -14,11 +14,8 @@ import java.util.List;
 public interface BasicController<T,id> {
     BasicService getService();
 
-    void printHeaders();
-
     default void getAllEntities() throws SQLException {
         List<T> entities = getService().findAll();
-        printHeaders();
         for (T entity : entities) {
             System.out.println(entity);
         }
@@ -26,7 +23,6 @@ public interface BasicController<T,id> {
 
     default Printable getEntity(Integer id) throws SQLException {
         T entity = (T) getService().findById(id);
-        printHeaders();
         System.out.println(entity);
         return null;
     }

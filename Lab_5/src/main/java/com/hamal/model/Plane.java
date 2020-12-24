@@ -5,16 +5,20 @@ import javax.persistence.*;
 @Entity
 @Table(name = "Plane", schema = "hamal_db")
 public class Plane {
-    private Integer id;
-    private Airline airlineByAirlineId;
-    private CurrentLocation currentLocationByCurrentLocationId;
-
     @Id
     @Column(name = "id")
+    private Integer id;
+    @ManyToOne
+    @JoinColumn(name = "airline_id", referencedColumnName = "id", nullable = false)
+    private Airline airlineByAirlineId;
+    @ManyToOne
+    @JoinColumn(name = "Current_location_id", referencedColumnName = "id", nullable = false)
+    private CurrentLocation currentLocationByCurrentLocationId;
+
+
     public Integer getId() {
         return id;
     }
-
     public void setId(Integer id) {
         this.id = id;
     }
@@ -36,22 +40,18 @@ public class Plane {
         return id != null ? id.hashCode() : 0;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "airline_id", referencedColumnName = "id", nullable = false)
+
     public Airline getAirlineByAirlineId() {
         return airlineByAirlineId;
     }
-
     public void setAirlineByAirlineId(Airline airlineByAirlineId) {
         this.airlineByAirlineId = airlineByAirlineId;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "Current_location_id", referencedColumnName = "id", nullable = false)
+
     public CurrentLocation getCurrentLocationByCurrentLocationId() {
         return currentLocationByCurrentLocationId;
     }
-
     public void setCurrentLocationByCurrentLocationId(CurrentLocation currentLocationByCurrentLocationId) {
         this.currentLocationByCurrentLocationId = currentLocationByCurrentLocationId;
     }

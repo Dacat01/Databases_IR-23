@@ -4,24 +4,44 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <property name="connection.url">jdbc:mysql://localhost:3306/hamal_db</property>
-        <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-
-        <property name="connection.username">root</property>
-        <property name="connection.password">Lfybkj04</property>
-
-        <mapping class="com.hamal.model.Airline"/>
-        <mapping class="com.hamal.model.CurrentLocation"/>
-        <mapping class="com.hamal.model.State"/>
-        <mapping class="com.hamal.model.PlaneInfo"/>
-        <mapping class="com.hamal.model.Plane"/>
-        <mapping class="com.hamal.model.Flight"/>
 
 
-         <!-- <property name="connection.username"/> -->
-        <!-- <property name="connection.password"/> -->
+    <!--
+      Properties of Hibernate Configuration
+      Hibernate JDBC Properties
 
-        <!-- DB schema will be updated if needed -->
-        <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
+Property	                            Description
+hibernate.connection.driver_class	    It represents the JDBC driver class.
+hibernate.connection.url	            It represents the JDBC URL.
+hibernate.connection.username	        It represents the database username.
+hibernate.connection.password	        It represents the database password.
+Hibernate.connection.pool_size	        It represents the maximum number of connections available in the connection pool.
+
+https://www.javatpoint.com/hibernate-configuration
+
+          -->
+
+          <property name="connection.url">jdbc:mysql://localhost:3306/hamal_db</property>
+          <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+
+          <property name="connection.username">root</property>
+          <property name="connection.password">Lfybkj04</property>
+
+
+<!--      Mapping in Hibernate
+ https://easyjava.ru/data/hibernate/mapping-sushhnostej-v-hibernate/
+
+Для вказування метаданих сутностей існує два способи: анотації Java та XML файли (Використано анотації у "model")
+
+ -->
+
+          <mapping class="com.hamal.model.Airline"/>
+          <mapping class="com.hamal.model.CurrentLocation"/>
+          <mapping class="com.hamal.model.State"/>
+          <mapping class="com.hamal.model.PlaneInfo"/>
+          <mapping class="com.hamal.model.Plane"/>
+          <mapping class="com.hamal.model.Flight"/>
+
+
     </session-factory>
 </hibernate-configuration>

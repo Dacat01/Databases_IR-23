@@ -8,59 +8,57 @@ import javax.persistence.*;
 @Entity
 @Table(name = "plane_info", schema = "hamal_db")
 public class PlaneInfo {
-    private Integer planeId;
-    private String planeIdentifier;
-    private String type;
-    private Integer totalHrs;
-    private Integer maxSpeed;
-    private Plane planeByPlaneId;
-
     @Id
     @Column(name = "Plane_id")
+    private Integer planeId;
+    @Basic
+    @Column(name = "plane_identifier")
+    private String planeIdentifier;
+    @Basic
+    @Column(name = "type")
+    private String type;
+    @Basic
+    @Column(name = "total_hrs")
+    private Integer totalHrs;
+    @Basic
+    @Column(name = "max_speed")
+    private Integer maxSpeed;
+    @OneToOne
+    @JoinColumn(name = "Plane_id", referencedColumnName = "id", nullable = false)
+    private Plane planeByPlaneId;
+
+
     public Integer getPlaneId() {
         return planeId;
     }
-
     public void setPlaneId(Integer planeId) {
         this.planeId = planeId;
     }
 
-    @Basic
-    @Column(name = "plane_identifier")
     public String getPlaneIdentifier() {
         return planeIdentifier;
     }
-
     public void setPlaneIdentifier(String planeIdentifier) {
         this.planeIdentifier = planeIdentifier;
     }
 
-    @Basic
-    @Column(name = "type")
     public String getType() {
         return type;
     }
-
     public void setType(String type) {
         this.type = type;
     }
 
-    @Basic
-    @Column(name = "total_hrs")
     public Integer getTotalHrs() {
         return totalHrs;
     }
-
     public void setTotalHrs(Integer totalHrs) {
         this.totalHrs = totalHrs;
     }
 
-    @Basic
-    @Column(name = "max_speed")
     public Integer getMaxSpeed() {
         return maxSpeed;
     }
-
     public void setMaxSpeed(Integer maxSpeed) {
         this.maxSpeed = maxSpeed;
     }
@@ -92,12 +90,10 @@ public class PlaneInfo {
         return result;
     }
 
-    @OneToOne
-    @JoinColumn(name = "Plane_id", referencedColumnName = "id", nullable = false)
+
     public Plane getPlaneByPlaneId() {
         return planeByPlaneId;
     }
-
     public void setPlaneByPlaneId(Plane planeByPlaneId) {
         this.planeByPlaneId = planeByPlaneId;
     }
