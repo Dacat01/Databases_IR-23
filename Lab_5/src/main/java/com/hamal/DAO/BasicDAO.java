@@ -12,7 +12,12 @@ import org.hibernate.query.Query;
 
 public interface BasicDAO<T, ID> {
 
-    //Методи, які притаманні для всіх табличок
+
+
+//  JPQL -  https://ru.bmstu.wiki/JPQL_(Java_Persistence_Query_Language)
+//  HQL  -  https://proselyte.net/tutorials/hibernate-tutorial/hibernate-query-language/
+// Методи Hibernate  -   https://temofeev.ru/info/articles/kak-rabotayut-metody-persist-merge-iz-jpa-i-metody-save-update-saveorupdate-iz-hibernate/
+// Стани сутностей - http://akorsa.ru/2016/08/kak-rabotaet-flush-v-hibernate/
 
   QueryManger getQueryManger();
 
@@ -21,9 +26,10 @@ public interface BasicDAO<T, ID> {
   default List<T> findAll() throws SQLException {
     List<T> entityList = new ArrayList<>();
     try (Session session = SessionManager.getSession()) {
+
       Query query = session.createQuery(getQueryManger().getFindAllQuery());
       for (Object entity : query.list()) {
-        entityList.add((T) entity);
+        entityList.add((T) entity);     //Отримання даних відбувається в циклі
       }
       return entityList;
     }
@@ -34,15 +40,27 @@ public interface BasicDAO<T, ID> {
     try (Session session = SessionManager.getSession()) {
       Query query = session.createQuery(getQueryManger().getFindByIdQuery());
       query.setParameter("id", id);
-      return (T) query.uniqueResult();
+      return (T) query.getSingleResult();
     }
   }
 
   default int create(T entity) throws SQLException {
     try (Session session = SessionManager.getSession()) {
-      int id = (int) session.save(entity);
+      session.beginTransaction();
+      session.save(entity);
+
+/*    SAVE - генерується запит
+
+      INSERT INTO table_name (
+              column_name1,
+              column_name2,
+              column_name3,
+      )
+*/
+      session.getTransaction().commit();
       session.close();
-      return id;
+      return 1;
+
     }
   }
 
@@ -51,7 +69,6 @@ public interface BasicDAO<T, ID> {
     try (Session session = SessionManager.getSession()) {
       session.beginTransaction();
       session.update(entity);
-
       session.getTransaction().commit();
       session.close();
     }

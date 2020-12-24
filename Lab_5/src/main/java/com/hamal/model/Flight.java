@@ -1,68 +1,75 @@
 package com.hamal.model;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
 public class Flight {
-    private Integer id;
-    private String flightNumber;
-    private String direction;
-    private Timestamp departureTime;
-    private Timestamp arrivalTime;
-
     @Id
     @Column(name = "id")
+    private Integer id;
+    @Basic
+    @Column(name = "flight_number")
+    private String flightNumber;
+    @Basic
+    @Column(name = "direction")
+    private String direction;
+    @Basic
+    @Column(name = "departure_time")
+    private Timestamp departureTime;
+    @Basic
+    @Column(name = "arrival_time")
+    private Timestamp arrivalTime;
+
+    @ManyToOne
+    @JoinColumn(name = "Plane_id", referencedColumnName = "id", nullable = false)
+    private Plane planeByPlaneId;
+
+    @ManyToOne
+    @JoinColumn(name = "State_id", referencedColumnName = "id", nullable = false)
+    private State stateByStateId;
+
     public Integer getId() {
         return id;
     }
-
     public void setId(Integer id) {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "flight_number")
     public String getFlightNumber() {
         return flightNumber;
     }
-
     public void setFlightNumber(String flightNumber) {
         this.flightNumber = flightNumber;
     }
 
-    @Basic
-    @Column(name = "direction")
     public String getDirection() {
         return direction;
     }
-
     public void setDirection(String direction) {
         this.direction = direction;
     }
 
-    @Basic
-    @Column(name = "departure_time")
     public Timestamp getDepartureTime() {
         return departureTime;
     }
-
     public void setDepartureTime(Timestamp departureTime) {
         this.departureTime = departureTime;
     }
 
-    @Basic
-    @Column(name = "arrival_time")
     public Timestamp getArrivalTime() {
         return arrivalTime;
     }
-
     public void setArrivalTime(Timestamp arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
+
+
+    public State getStateByStateId() {return stateByStateId; }
+    public void setStateByStateId(State stateByStateId) {this.stateByStateId = stateByStateId;}
+
+    public Plane getPlaneByPlaneId() {return planeByPlaneId; }
+    public void setPlaneByPlaneId(Plane planeByPlaneId) {this.planeByPlaneId = planeByPlaneId;}
 
     @Override
     public boolean equals(Object o) {
@@ -96,10 +103,12 @@ public class Flight {
     public String toString() {
         return "Flight{" +
                 "id=" + id +
+                ", Plane_id=" + planeByPlaneId.getId() +
                 ", flightNumber='" + flightNumber + '\'' +
                 ", direction='" + direction + '\'' +
                 ", departureTime=" + departureTime +
                 ", arrivalTime=" + arrivalTime +
+                ", State_id=" + stateByStateId.getId() +
                 '}';
     }
 }

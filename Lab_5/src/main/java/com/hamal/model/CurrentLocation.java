@@ -5,47 +5,44 @@ import javax.persistence.*;
 @Entity
 @Table(name = "current_location", schema = "hamal_db")
 public class CurrentLocation {
-    private Integer id;
-    private String country;
-    private String city;
-    private String airport;
-
     @Id
     @Column(name = "id")
+    private Integer id;
+    @Basic
+    @Column(name = "country")
+    private String country;
+    @Basic
+    @Column(name = "city")
+    private String city;
+    @Basic
+    @Column(name = "airport")
+    private String airport;
+
+
     public Integer getId() {
         return id;
     }
-
     public void setId(Integer id) {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "country")
     public String getCountry() {
         return country;
     }
-
     public void setCountry(String country) {
         this.country = country;
     }
 
-    @Basic
-    @Column(name = "city")
     public String getCity() {
         return city;
     }
-
     public void setCity(String city) {
         this.city = city;
     }
 
-    @Basic
-    @Column(name = "airport")
     public String getAirport() {
         return airport;
     }
-
     public void setAirport(String airport) {
         this.airport = airport;
     }

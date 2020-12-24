@@ -12,10 +12,5 @@ public class FlightController implements BasicController<Flight, Integer> {
         return new FlightService();
     }
 
-    @Override
-    public void printHeaders() {
-
-        //     System.out.println(Airline.getHeaders());
-    }
 
 }

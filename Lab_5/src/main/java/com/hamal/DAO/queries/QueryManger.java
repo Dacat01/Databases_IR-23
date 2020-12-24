@@ -7,6 +7,7 @@ public class QueryManger {
         this.className = className;
     }
 
+                                    //HQL запити
     public String getFindAllQuery() {
         return "FROM " + className;
     }

@@ -12,9 +12,4 @@ public class StateController implements BasicController<State, Integer> {
         return new StateService();
     }
 
-    @Override
-    public void printHeaders() {
-        //      System.out.println(Airline.getHeaders());
-    }
-
 }
