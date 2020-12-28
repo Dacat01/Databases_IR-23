@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "swagger.host.url",
+      "type": "java.lang.String",
+      "description": "Description for swagger.host.url."
+  }
+] }
