@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/hamal_db?serverTimezone=UTC
+    username: root
+    password: Lfybkj04
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    # Show or not log for each sql query
+    show-sql: true
+    hibernate:
+      # Hibernate ddl auto (validate, create, create-drop, update)
+      ddl-auto: update
+      # Naming strategy
+      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+
+server:
+  port: 8090
